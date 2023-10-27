@@ -4,20 +4,27 @@ const userService = require("../services/UserServices");
 const bcrypt = require("bcrypt");
 const cartService = require("../services/cart.services");
 
-const register = async (res, req) => {
+const register = async (req, res) => {
   try {
     const user = await createUser(req.body);
+    console.log(user);
+    if(user.status === "error") {
+      return res.status(400).json({
+        status: "failed",
+        message: user.message
+      })
+    }
 
     const jwt = jwtProvider.genrateToken(user._id);
 
     await cartService.createCart(user);
 
-    return res.status(200).send({ token, message: "registration successful" });
+    return res.status(200).json({ token: jwt, message: "registration successful" });
   } catch (error) {
-    return res.status(500).send({ message: error.message });
+    return res.status(500).json({ message: error.message });
   }
 };
-const login = async (res, req) => {
+const login = async (req, res) => {
   const { password, email } = req.body;
   try {
     const user = await userService.getUserByEmail({ email });
@@ -26,7 +33,7 @@ const login = async (res, req) => {
       return res.status(404).send({ message: "User not found email" });
     }
 
-    const isPasswordValid = await brycpt.compare(password, user.password);
+    const isPasswordValid = await bcrypt.compare(password, user.password);
 
     if (!isPasswordValid) {
       return res.status(401).send({ message: "Invalid Password" });

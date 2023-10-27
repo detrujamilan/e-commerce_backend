@@ -19,7 +19,6 @@ const userSchames = new mongoose.Schema({
   },
   role: {
     type: String,
-    required: true,
     default: "CUSTOMER",
   },
   mobile: {

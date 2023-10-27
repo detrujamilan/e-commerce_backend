@@ -9,18 +9,20 @@ const createUser = async (userData) => {
     const isUserExist = await User.findOne({ email });
 
     if (isUserExist) {
-      throw new Error("this email already exists", email);
+      throw new Error(`this email already exists ${email}`) 
     }
 
-    password = await bcrypt.hash(password, 8);
+    const hashPassword = await bcrypt.hash(password, 8);
 
-    const user = await User.create({ firstName, lastName, email, password });
-
-    console.log("user creted", user);
-
+    const user = await User.create({
+      firstName,
+      lastName,
+      email,
+      password: hashPassword,
+    });
     return user;
   } catch (err) {
-    throw new Error(err.Message);
+    return {message:err.message,status: 'error'}
   }
 };
 
