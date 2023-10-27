@@ -1,5 +1,5 @@
 const { createUser } = require("../services/UserServices");
-const jwtProvider = require("../config/jwtProvider");
+const jwtProvider = require("../middleware/jwtProvider");
 const userService = require("../services/UserServices");
 const bcrypt = require("bcrypt");
 const cartService = require("../services/cart.services");
