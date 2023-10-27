@@ -1,9 +1,9 @@
 const app = require(".");
 const { connetDb } = require("./config/db");
 
-const PORT = 5434;
+const PORT = 4567;
 
 app.listen(PORT, () => {
- connetDb();
+  connetDb();
   console.log("ecommerce listening on port", PORT);
 });
