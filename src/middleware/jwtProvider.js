@@ -1,15 +1,20 @@
 const jwt = require("jsonwebtoken");
 
-const SECRET_KEY = "asdjashdahdwqhbvdbvkjbkjafhjdhaoudhaeoududhawU";
+const SECRET_KEY = "iadiashdioashdiuahdiaudhiasuoh";
 
-const genrateToken = (userId) => {
+const generateToken = (userId) => {
   const token = jwt.sign({ userId }, SECRET_KEY, { expiresIn: "48h" });
-  return token
+  return token;
 };
 
-const getUserIdFormToken = async (token) => {
-  const decodedToken = jwt.verify(token, SECRET_KEY);
-  return decodedToken.userId;
+const getUserIdFromToken = async (token) => {
+  try {
+    const decodedToken = jwt.verify(token, SECRET_KEY);
+    return decodedToken.userId;
+  } catch (error) {
+    console.error(error);
+    throw new Error("Invalid token");
+  }
 };
 
-module.exports = { genrateToken, getUserIdFormToken };
+module.exports = { generateToken, getUserIdFromToken };

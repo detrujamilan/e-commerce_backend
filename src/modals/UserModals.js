@@ -33,7 +33,7 @@ const userSchames = new mongoose.Schema({
   paymentINformation: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "addresses",
+      ref: "payment_informations",
     },
   ],
   ratings: [

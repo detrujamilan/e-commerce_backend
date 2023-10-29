@@ -13,5 +13,5 @@ app.get("/", (req, res) => {
 const authRouters = require("../src/Routes/auth.route");
 app.use("/auth", authRouters);
 const userRouters = require("../src/Routes/user.route");
-app.use("/users", userRouters);
+app.use("/api/users", userRouters);
 module.exports = app;

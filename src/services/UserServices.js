@@ -9,7 +9,7 @@ const createUser = async (userData) => {
     const isUserExist = await User.findOne({ email });
 
     if (isUserExist) {
-      throw new Error(`this email already exists ${email}`) 
+      throw new Error(`this email already exists ${email}`);
     }
 
     const hashPassword = await bcrypt.hash(password, 8);
@@ -20,41 +20,47 @@ const createUser = async (userData) => {
       email,
       password: hashPassword,
     });
+
     return user;
   } catch (err) {
-    return {message:err.message,status: 'error'}
+    return { message: err.message, status: "error" };
   }
 };
 
-const getUserById = async (userId) => {
+const findUserById = async (userId) => {
   try {
-    const user = await User.findById(userId).populate("address");
-    if (!user) throw new Error("User not found");
+    const user = await User.findById(userId);
+    if (!user) {
+      throw new Error(`User not found for userId: ${userId}`);
+    }
     return user;
-  } catch (err) {
-    throw new Error(err.Message);
-  }
-};
-const getUserByEmail = async (email) => {
-  try {
-    const user = await User.findOne({ email });
-    if (!user) throw new Error("User not found email");
-    return user;
-  } catch (err) {
-    throw new Error(err.Message);
+  } catch (error) {
+    throw new Error(error.message);
   }
 };
 
 const getUserProfileToken = async (token) => {
   try {
-    const userId = jwtProvider.getUserIdFormToken(token);
+    const userId = await jwtProvider.getUserIdFromToken(token);
     const user = await findUserById(userId);
-
     if (!user) {
-      throw new Error("User not found with UserId: ");
+      throw new Error(`User not found with userId: ${userId}`);
     }
+    return user;
   } catch (error) {
+    console.error(error);
     throw new Error(error.message);
+  }
+};
+const getUserByEmail = async (email) => {
+  try {
+    const user = await User.findOne({ email });
+    if (!user) {
+      throw new Error(`User not found email ${email}`);
+    }
+    return user;
+  } catch (err) {
+    return { message: err.message, status: "error" };
   }
 };
 
@@ -70,7 +76,7 @@ const getAllUsers = async () => {
 module.exports = {
   createUser,
   getUserByEmail,
-  getUserById,
+  findUserById,
   getUserProfileToken,
   getAllUsers,
 };

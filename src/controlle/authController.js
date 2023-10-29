@@ -8,18 +8,20 @@ const register = async (req, res) => {
   try {
     const user = await createUser(req.body);
     console.log(user);
-    if(user.status === "error") {
+    if (user.status === "error") {
       return res.status(400).json({
         status: "failed",
-        message: user.message
-      })
+        message: user.message,
+      });
     }
 
-    const jwt = jwtProvider.genrateToken(user._id);
+    const jwt = jwtProvider.generateToken(user._id);
 
     await cartService.createCart(user);
 
-    return res.status(200).json({ token: jwt, message: "registration successful" });
+    return res
+      .status(200)
+      .json({ token: jwt, message: "registration successful" });
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }
@@ -27,7 +29,14 @@ const register = async (req, res) => {
 const login = async (req, res) => {
   const { password, email } = req.body;
   try {
-    const user = await userService.getUserByEmail({ email });
+    const user = await userService.getUserByEmail(email);
+
+    if (user.status === "error") {
+      return res.status(400).json({
+        status: "failed",
+        message: user.message,
+      });
+    }
 
     if (!user) {
       return res.status(404).send({ message: "User not found email" });
@@ -39,7 +48,7 @@ const login = async (req, res) => {
       return res.status(401).send({ message: "Invalid Password" });
     }
 
-    const jwt = await jwtProvider.genrateToken(user._id);
+    const jwt = await jwtProvider.generateToken(user._id);
 
     return res.status(200).send({ jwt, message: "login success" });
   } catch (error) {
