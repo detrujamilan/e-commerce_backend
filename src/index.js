@@ -16,17 +16,9 @@ app.use("/auth", authRouters);
 const userRouters = require("../src/Routes/user.route");
 app.use("/api/users", userRouters);
 
-
-
-
-
-
 const PORT = 4567;
 
 app.listen(PORT, () => {
   connetDb();
   console.log("ecommerce listening on port", PORT);
 });
-
-
-
