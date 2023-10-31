@@ -7,7 +7,6 @@ const cartService = require("../services/cart.services");
 const register = async (req, res) => {
   try {
     const user = await createUser(req.body);
-    console.log(user);
     if (user.status === "error") {
       return res.status(400).json({
         status: "failed",

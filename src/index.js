@@ -16,7 +16,7 @@ app.use("/auth", authRouters);
 const userRouters = require("../src/Routes/user.route");
 app.use("/api/users", userRouters);
 
-const PORT = 4567;
+const PORT = 3233;
 
 app.listen(PORT, () => {
   connetDb();
