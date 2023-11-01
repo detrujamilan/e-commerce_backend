@@ -53,7 +53,7 @@ const getAllProducts = async (req, res) => {
       .status(201)
       .json({ message: "find AllProduct successfully", getAllProduct });
   } catch (error) {
-    return res.status(500).json({ message: "not Find AllProducts" });
+    return res.status(500).json({ message: "no Products Found " });
   }
 };
 const createMultipleProducts = async (req, res) => {
@@ -65,7 +65,7 @@ const createMultipleProducts = async (req, res) => {
       .status(201)
       .json({ message: "createMultiProduct successfully", createMultiProduct });
   } catch (error) {
-    return res.status(500).json({ message: "not Find AllProducts" });
+    return res.status(500).json({ message: "no Products Found" });
   }
 };
 

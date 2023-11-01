@@ -47,3 +47,4 @@ app.listen(PORT, () => {
   connetDb();
   console.log("ecommerce listening on port", PORT);
 });
+  
