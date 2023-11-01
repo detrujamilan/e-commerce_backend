@@ -25,6 +25,7 @@ const register = async (req, res) => {
     return res.status(500).json({ message: error.message });
   }
 };
+
 const login = async (req, res) => {
   const { password, email } = req.body;
   try {

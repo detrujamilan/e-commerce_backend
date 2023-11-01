@@ -9,7 +9,7 @@ async function getAllOrders(req, res) {
   }
 }
 
-async function confirmeOrders(req, res) {
+async function confirmedOrders(req, res) {
   const orderId = req.params.orderId;
   try {
     const orders = await orderService.confirmeOrders(orderId);
@@ -29,7 +29,7 @@ async function shipOrders(req, res) {
   }
 }
 
-async function deliveryOrders(req, res) {
+async function deliverOrders(req, res) {
   const orderId = req.params.orderId;
   try {
     const orders = await orderService.deliveryOrders(orderId);
@@ -61,9 +61,9 @@ async function deleteOrders(req, res) {
 
 module.exports = {
   getAllOrders,
-  confirmeOrders,
+  confirmedOrders,
   shipOrders,
-  deliveryOrders,
+  deliverOrders,
   cancleOrders,
   deleteOrders,
 };

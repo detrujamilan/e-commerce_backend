@@ -12,11 +12,12 @@ async function createRating(req, user) {
   return await rating.save();
 }
 
-async function getProductRating(productId) {
-  return await Rating.find({ product: productId });
+async function getAllReviews(req, res, productId) {
+  const product = await productService.findProductById(req.productId);
+  return await Rating.find({ product: productId }).populate("user");
 }
 
 module.exports = {
   createRating,
-  getProductRating,
+  getAllReviews,
 };

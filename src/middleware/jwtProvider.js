@@ -17,4 +17,4 @@ const getUserIdFromToken = async (token) => {
   }
 };
 
-module.exports = { generateToken, getUserIdFromToken };
+module.exports = { generateToken , getUserIdFromToken };
