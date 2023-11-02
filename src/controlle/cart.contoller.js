@@ -1,21 +1,22 @@
 const cartServices = require("../services/cart.services");
 
-const findUserCart = (res) => {
-  const user = res.user;
+const findUserCart = (req,res) => {
+  const user = req.user;
   try {
     const cart = cartServices.findUserCart(user._id);
     return res.status(200).json({ message: "Success cart", cart });
   } catch (error) {
-    return res.status(500).json({ message: "" });
+    return res.status(500).json({ message: "",error });
   }
 };
-const addItemToCart = (req, res) => {
+const addItemToCart = async (req, res) => {
   const user = res.user;
   try {
-    const cartItem = cartServices.addCartItem(user._id, req);
+    const cartItem = await cartServices.addCartItem(user._id, req.body);
+    console.log("cartItem",cartItem);
     return res.status(200).json({ message: "Success cart", cartItem });
   } catch (error) {
-    return res.status(500).json({ message: "" });
+    return res.status(500).json({ message: "intrenal server error" });
   }
 };
 

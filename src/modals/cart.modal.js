@@ -13,7 +13,7 @@ const cartSchema = mongoose.Schema({
       required: true,
     },
   ],
-  totalProce: {
+  totalPrice: {
     type: Number,
     required: true,
     default: 0,

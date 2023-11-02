@@ -5,4 +5,4 @@ const razorPayClient = new Razorpay({
   key_secret: "j03uCi2fvGJVbxsHJ5cUapgB",
 });
 
-module.exports = { razorPayClient };
+module.exports = razorPayClient;

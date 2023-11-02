@@ -30,7 +30,7 @@ const cartItemRouter = require("./Routes/cartItemRoute");
 app.use("/api/cartItem", cartItemRouter);
 
 const orderRouter = require("./Routes/orderRoute");
-app.use("/api/order", orderRouter);
+app.use("/api/orders", orderRouter);
 
 const adminOrderRouter = require("./Routes/adminOrderRoute");
 app.use("/api/admin/order", adminOrderRouter);
@@ -44,7 +44,7 @@ app.use("/api/rating", ratingRouter);
 const paymentRouter = require("./Routes/paymentRouter");
 app.use("/api/payments", paymentRouter);
 
-const PORT = 3233;
+const PORT = 3002;
 
 app.listen(PORT, () => {
   connetDb();

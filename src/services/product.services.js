@@ -2,42 +2,43 @@ const { create } = require("../modals/UserModals");
 const Category = require("../modals/category.modal");
 const Product = require("../modals/Product.Modal");
 
-async function createProduct(req, res) {
-  const topLevel = await Category.findeOne({ user: req.topLevelCategory });
+async function createProduct(req) {
+  let topLevel = await Category.findOne({ name : req.topLevelCategory });
 
   if (!topLevel) {
-    topLevel = new Category({
+    topLevel = await Category.create({
       name: req.topLevelCategory,
-      lavel: 1,
-    });
+      level: 1,
+    })
   }
-
-  let secoundLevel = await Category.findeOne({
+  let secoundLevel = await Category.findOne({
     name: req.secoundLevelCategory,
-    parentCategory: topLevel._id,
+    parentCategory: topLevel.id,
+    level: 2
   });
 
   if (!secoundLevel) {
-    secoundLevel = new Category({
+    secoundLevel = await Category.create({
       name: req.secoundLevelCategory,
-      parentCategory: topLevel._id,
-      lavel: 2,
-    });
+      parentCategory: topLevel.id,
+      level: 2,
+    })
   }
 
-  let thirderLevel = await Category.findeOne({
+  let thirderLevel = await Category.findOne({
     name: req.thirdLevelCategory,
     parentCategory: secoundLevel._id,
+    level:3
   });
   if (!thirderLevel) {
-    thirderLevel = new Category({
+    thirderLevel = await Category.create({
       name: req.thirdLevelCategory,
       parentCategory: secoundLevel._id,
-      lavel: 3,
-    });
+      level: 3,
+    })
   }
 
-  const product = new Product({
+  const product = {
     title: req.title,
     color: req.color,
     description: req.description,
@@ -48,10 +49,12 @@ async function createProduct(req, res) {
     quantity: req.quantity,
     price: req.price,
     size: req.size,
-    size: thirderLevel._id,
-  });
+    category: thirderLevel._id,
+  };
 
-  return await product.save();
+  const data = await Product.create(product);
+  console.log(data);
+  return data;
 }
 
 async function deleteProduct(productId, res) {
@@ -70,7 +73,7 @@ async function findProductById(productId, res) {
   return product;
 }
 
-async function getAllProducts(req, res) {
+async function getAllProducts(req) {
   let {
     category,
     sizes,

@@ -52,10 +52,10 @@ const productSchema = new Schema({
   ],
   numRatings: {
     type: mongoose.Schema.Types.ObjectId,
-    default: 0,
+    ref: "ratings"
   },
   category: {
-    type: Number,
+    type: mongoose.Schema.Types.ObjectId,
     ref: "categories",
   },
   creatdAt: {

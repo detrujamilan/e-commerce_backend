@@ -7,6 +7,7 @@ async function createOrder(user, shipAddress) {
 
   if (shipAddress._id) {
     let existAddress = await Address.findById(shipAddress._id);
+    console.log(existAddress)
     address = existAddress;
   } else {
     address = new Address(shipAddress);
@@ -41,7 +42,7 @@ async function createOrder(user, shipAddress) {
     shipAddress: address,
   });
 
-  const saveOrder = await createOrder.save();
+  const saveOrder = await createdOrder.save();
   return saveOrder;
 }
 

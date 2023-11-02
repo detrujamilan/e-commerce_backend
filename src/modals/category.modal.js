@@ -10,7 +10,7 @@ const categoryScheme = mongoose.Schema({
     required: true,
     maxlength: 50,
   },
-  quantity: {
+  level: {
     type: Number,
     required: true,
   },
