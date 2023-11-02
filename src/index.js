@@ -17,33 +17,6 @@ app.use("/auth", authRouters);
 const userRouters = require("../src/Routes/user.route");
 app.use("/api/users", userRouters);
 
-const productRouter = require("../src/Routes/productRoute");
-app.use("/api/products", productRouter);
-
-const adminProductRouter = require("./Routes/adminProductRoute");
-app.use("/api/admin/products", adminProductRouter);
-
-const cartRouter = require("./Routes/cartRoute");
-app.use("/api/cart", cartRouter);
-
-const cartItemRouter = require("./Routes/cartItemRoute");
-app.use("/api/cartItem", cartItemRouter);
-
-const orderRouter = require("./Routes/orderRoute");
-app.use("/api/orders", orderRouter);
-
-const adminOrderRouter = require("./Routes/adminOrderRoute");
-app.use("/api/admin/order", adminOrderRouter);
-
-const reviewRouter = require("./Routes/reviewRoute");
-app.use("/api/review", reviewRouter);
-
-const ratingRouter = require("./Routes/ratingRoute");
-app.use("/api/rating", ratingRouter);
-
-const paymentRouter = require("./Routes/paymentRouter");
-app.use("/api/payments", paymentRouter);
-
 const PORT = 3002;
 
 app.listen(PORT, () => {

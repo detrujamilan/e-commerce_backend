@@ -10,7 +10,8 @@ const authenticate = async (req, res, next) => {
     const userId = await jwtProvider.getUserIdFromToken(token);
 
     const user = await userServices.findUserById(userId);
-    res.user = user;
+    req.user = user;
+    next();
   } catch (error) {
     return res
       .status(501)

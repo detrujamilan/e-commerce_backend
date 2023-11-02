@@ -2,7 +2,6 @@ const { createUser } = require("../services/UserServices");
 const jwtProvider = require("../middleware/jwtProvider");
 const userService = require("../services/UserServices");
 const bcrypt = require("bcrypt");
-const cartService = require("../services/cart.services");
 
 const register = async (req, res) => {
   try {
