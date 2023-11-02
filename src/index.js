@@ -41,10 +41,12 @@ app.use("/api/review", reviewRouter);
 const ratingRouter = require("./Routes/ratingRoute");
 app.use("/api/rating", ratingRouter);
 
+const paymentRouter = require("./Routes/paymentRouter");
+app.use("/api/payments", paymentRouter);
+
 const PORT = 3233;
 
 app.listen(PORT, () => {
   connetDb();
   console.log("ecommerce listening on port", PORT);
 });
-  
