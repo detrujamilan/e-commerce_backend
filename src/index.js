@@ -14,7 +14,7 @@ app.get("/", (req, res) => {
 const authRouters = require("../src/Routes/auth.route");
 app.use("/auth", authRouters);
 
-const PORT = 3002;
+const PORT = 3000;
 
 app.listen(PORT, () => {
   connetDb();
