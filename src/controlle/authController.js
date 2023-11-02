@@ -1,21 +1,27 @@
-const { createUser } = require("../services/UserServices");
 const jwtProvider = require("../middleware/jwtProvider");
-const userService = require("../services/UserServices");
 const bcrypt = require("bcrypt");
+const User = require("../modals/UserModals");
 
 const register = async (req, res) => {
   try {
-    const user = await createUser(req.body);
-    if (user.status === "error") {
-      return res.status(400).json({
-        status: "failed",
-        message: user.message,
-      });
+    let { firstName, lastName, email, password } = req.body;
+
+    const isUserExist = await User.findOne({ email });
+
+    if (isUserExist) {
+      throw new Error(`this email already exists ${email}`);
     }
 
-    const jwt = jwtProvider.generateToken(user._id);
+    const hashPassword = await bcrypt.hash(password, 8);
 
-    await cartService.createCart(user);
+    const user = await User.create({
+      firstName,
+      lastName,
+      email,
+      password: hashPassword,
+    });
+
+    const jwt = jwtProvider.generateToken(user._id);
 
     return res
       .status(200)
@@ -28,17 +34,10 @@ const register = async (req, res) => {
 const login = async (req, res) => {
   const { password, email } = req.body;
   try {
-    const user = await userService.getUserByEmail(email);
-
-    if (user.status === "error") {
-      return res.status(400).json({
-        status: "failed",
-        message: user.message,
-      });
-    }
+    const user = await User.findOne({ email });
 
     if (!user) {
-      return res.status(404).send({ message: "User not found email" });
+      throw new Error(`User not found email ${email}`);
     }
 
     const isPasswordValid = await bcrypt.compare(password, user.password);
