@@ -25,7 +25,7 @@ const register = async (req, res) => {
 
     return res
       .status(200)
-      .json({ token: jwt, message: "registration successful" });
+      .json({ token: jwt, message: "registration successfully" });
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }
@@ -48,7 +48,7 @@ const login = async (req, res) => {
 
     const jwt = await jwtProvider.generateToken(user._id);
 
-    return res.status(200).send({ jwt, message: "login success" });
+    return res.status(200).send({ jwt, message: "login successfully" });
   } catch (error) {
     return res.status(500).send({ message: error.message });
   }
